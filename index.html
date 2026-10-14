@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thomas Gline · UX/UI Designer</title>
+  <meta name="description" content="Portfolio de Thomas Gline, UX/UI Designer junior basé en Belgique. Sites web et applications mobiles conçus dans Figma.">
+  <meta property="og:title" content="Thomas Gline · UX/UI Designer">
+  <meta property="og:description" content="Sites web et applications mobiles conçus dans Figma.">
+  <meta property="og:image" content="assets/img/gabrielle-hero.jpg">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231d1d1f'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='28' fill='%23fff'%3ETG%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- Filtre SVG : contour net des mots du bandeau -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="outline" x="-5%" y="-25%" width="110%" height="150%" color-interpolation-filters="sRGB">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="1.5" result="grown"/>
+      <feComposite in="grown" in2="SourceAlpha" operator="out" result="ring"/>
+      <feFlood flood-color="#1d1d1f"/>
+      <feComposite in2="ring" operator="in"/>
+    </filter>
+  </svg>
+
+  <!-- Écran de chargement -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <span class="loader__name">Thomas Gline — Portfolio</span>
+      <span class="loader__count"><span class="loader__num">0</span>%</span>
+    </div>
+  </div>
+
+  <!-- Curseur personnalisé (desktop uniquement) -->
+  <div class="cursor" aria-hidden="true"><span class="cursor__label">Voir</span></div>
+
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="#top" class="nav__logo" data-scroll-to>Thomas Gline</a>
+      <nav class="nav__links" aria-label="Navigation principale">
+        <a href="#projets" data-scroll-to>Projets</a>
+        <a href="#apropos" data-scroll-to>À propos</a>
+        <a href="#parcours" data-scroll-to>Parcours</a>
+        <a href="#contact" data-scroll-to>Contact</a>
+      </nav>
+      <span class="nav__status"><i></i>Ouvert aux opportunités</span>
+    </div>
+    <div class="nav__progress" aria-hidden="true"></div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__meta container">
+        <span>UX/UI Designer junior</span>
+        <span>Basé en Belgique</span>
+        <span class="hero__clock">Charleroi, BE — <time data-clock>--:--</time></span>
+      </div>
+
+      <div class="hero__intro container">
+        <p class="hero__lead" data-split-lines>
+          Je conçois des interfaces web et mobiles claires, utiles et soignées, avec l'œil d'un graphiste passé par le print.
+        </p>
+        <a href="#projets" class="btn btn--ghost hero__cta" data-scroll-to data-magnetic>
+          Voir les projets <span class="btn__arrow" aria-hidden="true">↓</span>
+        </a>
+      </div>
+
+      <h1 class="hero__title" aria-label="Thomas Gline">
+        <span class="hero__word">Thomas</span>
+        <span class="hero__word">Gline</span>
+      </h1>
+    </section>
+
+    <!-- GALERIE (colonnes en parallaxe) -->
+    <section class="reel" aria-label="Aperçu des projets">
+      <div class="reel__frame">
+        <div class="reel__cols">
+          <div class="reel__col" data-speed="-1">
+            <img src="assets/img/cinemon-desktop.jpg" width="1440" height="4411" alt="" class="reel__img reel__img--wide">
+            <img src="assets/img/workout-home.jpg" width="393" height="852" alt="">
+            <img src="assets/img/gabrielle-pathologie.jpg" width="1440" height="826" alt="" class="reel__img reel__img--wide">
+            <img src="assets/img/astro-venus.jpg" width="402" height="874" alt="">
+          </div>
+          <div class="reel__col" data-speed="1">
+            <img src="assets/img/astro-mars.jpg" width="402" height="874" alt="">
+            <img src="assets/img/gabrielle-hero.jpg" width="1440" height="798" alt="" class="reel__img reel__img--wide">
+            <img src="assets/img/workout-historique.jpg" width="393" height="852" alt="">
+            <img src="assets/img/cinemon-mobile.jpg" width="375" height="5454" alt="" class="reel__img reel__img--wide">
+          </div>
+          <div class="reel__col" data-speed="-1.4">
+            <img src="assets/img/gabrielle-site.jpg" width="1440" height="5133" alt="" class="reel__img reel__img--wide">
+            <img src="assets/img/astro-venus.jpg" width="402" height="874" alt="">
+            <img src="assets/img/cinemon-desktop.jpg" width="1440" height="4411" alt="" class="reel__img reel__img--wide reel__img--mid">
+            <img src="assets/img/workout-home.jpg" width="393" height="852" alt="">
+          </div>
+          <div class="reel__col" data-speed="0.8">
+            <img src="assets/img/workout-historique.jpg" width="393" height="852" alt="">
+            <img src="assets/img/cinemon-mobile.jpg" width="375" height="5454" alt="" class="reel__img reel__img--wide">
+            <img src="assets/img/astro-mars.jpg" width="402" height="874" alt="">
+            <img src="assets/img/gabrielle-hero.jpg" width="1440" height="798" alt="" class="reel__img reel__img--wide">
+          </div>
+        </div>
+        <p class="reel__caption">4 projets · Web &amp; Mobile · Conçus dans Figma</p>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee__row" data-dir="1">
+        <div class="marquee__track">
+          <span>UX Design</span><span class="marquee__dot">✦</span>
+          <span>UI Design</span><span class="marquee__dot">✦</span>
+          <span>Prototypage</span><span class="marquee__dot">✦</span>
+          <span>Responsive</span><span class="marquee__dot">✦</span>
+          <span>Figma</span><span class="marquee__dot">✦</span>
+        </div>
+      </div>
+      <div class="marquee__row marquee__row--outline" data-dir="-1">
+        <div class="marquee__track">
+          <span>Web</span><span class="marquee__dot">✦</span>
+          <span>Mobile</span><span class="marquee__dot">✦</span>
+          <span>Print</span><span class="marquee__dot">✦</span>
+          <span>Identité</span><span class="marquee__dot">✦</span>
+          <span>Front-end</span><span class="marquee__dot">✦</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- À PROPOS -->
+    <section class="about section" id="apropos">
+      <div class="container about__grid">
+        <p class="label"><span>(01)</span> À propos</p>
+        <div>
+          <p class="about__text" data-reveal-words>
+            J'ai commencé par le print&nbsp;: affiches, flyers, bâches, logos. J'y ai appris la rigueur de la mise en page et le souci du détail. Curieux d'informatique depuis toujours, je mets aujourd'hui ce regard au service des écrans&nbsp;: comprendre les besoins, structurer, prototyper, puis soigner chaque pixel.
+          </p>
+          <p class="about__sub" data-fade>
+            Et comme j'ai aussi un passé de développeur front-end, je sais comment une maquette prend vie dans le code.
+          </p>
+          <ul class="about__pills" aria-label="Qualités">
+            <li>Minutieux</li><li>À l'écoute</li><li>Patient</li><li>Curieux</li><li>Autodidacte</li>
+          </ul>
+          <p class="about__passions" data-fade>En dehors des écrans&nbsp;: le hardware, le football et l'astronomie (d'où le projet Astro).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJETS : index -->
+    <section class="work section" id="projets">
+      <div class="container">
+        <div class="work__head">
+          <p class="label"><span>(02)</span> Projets sélectionnés</p>
+          <h2 class="section-title" data-split-chars>Projets</h2>
+        </div>
+
+        <ol class="index" aria-label="Liste des projets">
+          <li><a href="#cinemon" data-scroll-to data-preview="assets/img/cinemon-desktop.jpg">
+            <span class="index__num">01</span><span class="index__name">Cinémon</span><span class="index__type">Site web responsive</span><span class="index__year">2026</span>
+          </a></li>
+          <li><a href="#workout" data-scroll-to data-preview="assets/img/workout-home.jpg">
+            <span class="index__num">02</span><span class="index__name">Workout</span><span class="index__type">Application mobile</span><span class="index__year">2026</span>
+          </a></li>
+          <li><a href="#astro" data-scroll-to data-preview="assets/img/astro-mars.jpg">
+            <span class="index__num">03</span><span class="index__name">Astro</span><span class="index__type">Application mobile</span><span class="index__year">2026</span>
+          </a></li>
+          <li><a href="#gabrielle" data-scroll-to data-preview="assets/img/gabrielle-hero.jpg">
+            <span class="index__num">04</span><span class="index__name">Gabrielle</span><span class="index__type">Site vitrine</span><span class="index__year">2026</span>
+          </a></li>
+        </ol>
+      </div>
+      <div class="index__preview" aria-hidden="true"><img src="" alt=""></div>
+    </section>
+
+    <!-- PROJET 01 : CINÉMON -->
+    <article class="project" id="cinemon" style="--tint:#ece3cf; --tint-2:#d9c89f">
+      <div class="container">
+        <header class="project__head">
+          <span class="project__num">01</span>
+          <h3 class="project__title" data-split-chars>Cinémon</h3>
+          <p class="project__kicker">Site web responsive pour un cinéma d'art et d'essai</p>
+        </header>
+      </div>
+
+      <div class="stage-wrap">
+        <div class="project__stage" data-lightbox="cinemon" data-cursor="Voir en grand">
+          <div class="stage__inner stage__inner--cinemon">
+            <div class="laptop" data-float="0.6">
+              <div class="laptop__screen">
+                <div class="laptop__viewport" data-scrollshot>
+                  <img src="assets/img/cinemon-desktop.jpg" width="1440" height="4411" alt="Page d'accueil desktop du site Cinémon, de l'en-tête au pied de page" loading="lazy">
+                </div>
+              </div>
+              <div class="laptop__base"></div>
+            </div>
+            <div class="phone phone--cinemon" data-float="-0.8">
+              <div class="phone__screen" data-scrollshot>
+                <img src="assets/img/cinemon-mobile.jpg" width="375" height="5454" alt="Version mobile du site Cinémon" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container project__body">
+        <p class="project__desc" data-fade>
+          Un site pour un cinéma indépendant&nbsp;: film à l'affiche, programme du jour, rétrospectives et newsletter. L'identité s'inspire des tickets de cinéma (bords perforés, or et anthracite) pour une ambiance rétro et chaleureuse, déclinée en desktop et en mobile.
+        </p>
+        <dl class="project__meta" data-stagger>
+          <div><dt>Année</dt><dd>2026</dd></div>
+          <div><dt>Contexte</dt><dd>Formation UX/UI, CEPEGRA</dd></div>
+          <div><dt>Livrables</dt><dd>Maquettes desktop &amp; mobile</dd></div>
+          <div><dt>Outil</dt><dd>Figma</dd></div>
+        </dl>
+        <button class="btn btn--ghost" data-lightbox="cinemon" data-magnetic>Voir les écrans en grand <span class="btn__arrow" aria-hidden="true">↗</span></button>
+      </div>
+    </article>
+
+    <!-- PROJET 02 : WORKOUT -->
+    <article class="project project--alt" id="workout" style="--tint:#ffe7c4; --tint-2:#ffc76b">
+      <div class="container">
+        <header class="project__head">
+          <span class="project__num">02</span>
+          <h3 class="project__title" data-split-chars>Workout</h3>
+          <p class="project__kicker">Application mobile de suivi d'entraînement</p>
+        </header>
+      </div>
+
+      <div class="stage-wrap">
+        <div class="project__stage" data-lightbox="workout" data-cursor="Voir en grand">
+          <div class="stage__inner stage__inner--duo">
+            <span class="stage__word" aria-hidden="true">Streak</span>
+            <div class="phone phone--tilt-l" data-float="-0.6">
+              <div class="phone__screen">
+                <img src="assets/img/workout-home.jpg" width="393" height="852" alt="Écran d'accueil de Workout : streak de 7 jours et workout en cours" loading="lazy">
+              </div>
+            </div>
+            <div class="phone phone--tilt-r" data-float="0.9">
+              <div class="phone__screen">
+                <img src="assets/img/workout-historique.jpg" width="393" height="852" alt="Écran Historique de Workout : 48 workouts complétés, 2473 minutes" loading="lazy">
+              </div>
+            </div>
+            <span class="chip chip--a" data-float="1.6">7 jours de suite</span>
+            <span class="chip chip--b" data-float="-1.2">48 workouts complétés</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container project__body">
+        <p class="project__desc" data-fade>
+          Une app de sport qui motive au quotidien&nbsp;: série de jours consécutifs, reprise du workout en cours, création de séances et historique des performances. Le contraste noir et orange permet une lecture rapide, même en pleine séance.
+        </p>
+        <dl class="project__meta" data-stagger>
+          <div><dt>Année</dt><dd>2026</dd></div>
+          <div><dt>Contexte</dt><dd>Formation UX/UI, CEPEGRA</dd></div>
+          <div><dt>Livrables</dt><dd>Maquettes iOS</dd></div>
+          <div><dt>Outil</dt><dd>Figma</dd></div>
+        </dl>
+        <button class="btn btn--ghost" data-lightbox="workout" data-magnetic>Voir les écrans en grand <span class="btn__arrow" aria-hidden="true">↗</span></button>
+      </div>
+    </article>
+
+    <!-- PROJET 03 : ASTRO -->
+    <article class="project" id="astro" style="--tint:#f6c9b0; --tint-2:#f4dd9a">
+      <div class="container">
+        <header class="project__head">
+          <span class="project__num">03</span>
+          <h3 class="project__title" data-split-chars>Astro</h3>
+          <p class="project__kicker">Application mobile pour explorer le système solaire</p>
+        </header>
+      </div>
+
+      <div class="stage-wrap">
+        <div class="project__stage project__stage--astro" data-lightbox="astro" data-cursor="Voir en grand">
+          <div class="stars" aria-hidden="true"></div>
+          <div class="stage__inner stage__inner--duo">
+            <div class="phone" data-float="-0.9">
+              <div class="phone__screen">
+                <video src="assets/video/astro-mars.mp4" poster="assets/img/astro-mars.jpg" muted loop playsinline preload="none" aria-label="Animation de l'écran Mars dans l'app Astro"></video>
+              </div>
+            </div>
+            <div class="phone phone--offset" data-float="0.9">
+              <div class="phone__screen">
+                <video src="assets/video/astro-venus.mp4" poster="assets/img/astro-venus.jpg" muted loop playsinline preload="none" aria-label="Animation de l'écran Vénus dans l'app Astro"></video>
+              </div>
+            </div>
+            <span class="planet planet--a" aria-hidden="true" data-float="2"></span>
+            <span class="planet planet--b" aria-hidden="true" data-float="-1.5"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container project__body">
+        <p class="project__desc" data-fade>
+          Une app pédagogique pour découvrir les planètes&nbsp;: chacune a sa couleur, son illustration et ses chiffres clés. Les animations ont été prototypées dans Figma. Un projet qui rejoint ma passion pour l'astronomie.
+        </p>
+        <dl class="project__meta" data-stagger>
+          <div><dt>Année</dt><dd>2026</dd></div>
+          <div><dt>Contexte</dt><dd>Formation UX/UI, CEPEGRA</dd></div>
+          <div><dt>Livrables</dt><dd>Maquettes &amp; prototype animé</dd></div>
+          <div><dt>Outil</dt><dd>Figma</dd></div>
+        </dl>
+        <button class="btn btn--ghost" data-lightbox="astro" data-magnetic>Voir les écrans en grand <span class="btn__arrow" aria-hidden="true">↗</span></button>
+      </div>
+    </article>
+
+    <!-- PROJET 04 : GABRIELLE -->
+    <article class="project project--alt" id="gabrielle" style="--tint:#cfe8e6; --tint-2:#9fd3cf">
+      <div class="container">
+        <header class="project__head">
+          <span class="project__num">04</span>
+          <h3 class="project__title" data-split-chars>Gabrielle</h3>
+          <p class="project__kicker">Site vitrine pour une praticienne en Méthode JMV <span class="badge">Bientôt en ligne</span></p>
+        </header>
+      </div>
+
+      <div class="stage-wrap">
+        <div class="project__stage" data-lightbox="gabrielle" data-cursor="Voir en grand">
+          <div class="stage__inner stage__inner--gabrielle">
+            <div class="browser" data-float="0.4">
+              <div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">Bientôt en ligne</span></div>
+              <div class="browser__viewport" data-scrollshot>
+                <img src="assets/img/gabrielle-site.jpg" width="1440" height="5133" alt="Page d'accueil complète du site Gabrielle" loading="lazy">
+              </div>
+            </div>
+            <figure class="shot shot--a" data-float="-1.4">
+              <img src="assets/img/gabrielle-pathologie.jpg" width="1440" height="826" alt="Section pathologies avec onglets" loading="lazy">
+            </figure>
+            <figure class="shot shot--b" data-float="1.6">
+              <img src="assets/img/gabrielle-hero.jpg" width="1440" height="798" alt="En-tête du site : Libérez vos blocages physiques et émotionnels" loading="lazy">
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <div class="container project__body">
+        <p class="project__desc" data-fade>
+          Un projet personnel pour une vraie praticienne&nbsp;: un site apaisant qui présente la méthode, les pathologies prises en charge et la praticienne, et qui facilite la prise de rendez-vous. Les textes sont encore provisoires, la mise en ligne arrive bientôt.
+        </p>
+        <dl class="project__meta" data-stagger>
+          <div><dt>Année</dt><dd>2026</dd></div>
+          <div><dt>Contexte</dt><dd>Projet personnel</dd></div>
+          <div><dt>Livrables</dt><dd>Site vitrine responsive</dd></div>
+          <div><dt>Outil</dt><dd>Figma</dd></div>
+        </dl>
+        <button class="btn btn--ghost" data-lightbox="gabrielle" data-magnetic>Voir les écrans en grand <span class="btn__arrow" aria-hidden="true">↗</span></button>
+      </div>
+    </article>
+
+    <!-- COMPÉTENCES -->
+    <section class="skills section" id="competences">
+      <div class="container">
+        <div class="work__head">
+          <p class="label"><span>(03)</span> Compétences</p>
+          <h2 class="section-title" data-split-chars>Outils &amp; savoir-faire</h2>
+        </div>
+        <div class="skills__list">
+          <div class="skills__row">
+            <h3>UX/UI</h3>
+            <ul><li>Figma</li><li>Wireframes</li><li>Prototypage</li><li>Design responsive</li><li>UI design</li></ul>
+          </div>
+          <div class="skills__row">
+            <h3>Graphisme</h3>
+            <ul><li>Illustrator</li><li>Photoshop</li><li>InDesign</li><li>Fichiers de production</li><li>Droit d'auteur</li></ul>
+          </div>
+          <div class="skills__row">
+            <h3>Web</h3>
+            <ul><li>HTML</li><li>CSS</li><li>FileZilla</li></ul>
+          </div>
+          <div class="skills__row">
+            <h3>Et aussi</h3>
+            <ul><li>Montage PC</li><li>Impression 3D</li><li>Suite Office</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARCOURS (défilement horizontal) -->
+    <section class="journey" id="parcours">
+      <div class="journey__pin">
+        <div class="container journey__head">
+          <p class="label"><span>(04)</span> Parcours</p>
+          <h2 class="section-title" data-split-chars>Code, print, puis UX.</h2>
+        </div>
+        <div class="journey__track">
+          <div class="journey__line"><span></span></div>
+          <article class="step">
+            <span class="step__date">2019 → 2020</span>
+            <h3>Bachelier en informatique industrielle (1<sup>re</sup> année)</h3>
+            <p>HELHa, Charleroi</p>
+          </article>
+          <article class="step">
+            <span class="step__date">Août 2020 → Mars 2021</span>
+            <h3>Formation développeur front-end</h3>
+            <p>BeCode, Charleroi</p>
+          </article>
+          <article class="step">
+            <span class="step__date">Avr. → Juin 2021</span>
+            <h3>Stage développeur front-end</h3>
+            <p>Genexys, Louvain-la-Neuve</p>
+          </article>
+          <article class="step">
+            <span class="step__date">Mars → Juil. 2024</span>
+            <h3>Découverte des métiers du numérique</h3>
+            <p>CODDI, Charleroi</p>
+          </article>
+          <article class="step">
+            <span class="step__date">Oct. 2024 → Mars 2025</span>
+            <h3>Formation Graphic Designer</h3>
+            <p>CEPEGRA, Gosselies</p>
+          </article>
+          <article class="step">
+            <span class="step__date">Mars → Déc. 2025</span>
+            <h3>Infographiste</h3>
+            <p>Empreinte Graphique. Bâches, panneaux, logos, flyers, véhicules utilitaires et fichiers de production.</p>
+          </article>
+          <article class="step step--now">
+            <span class="step__date">Avr. → Nov. 2026</span>
+            <h3>Formation UX/UI Designer</h3>
+            <p>CEPEGRA, Gosselies</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <p class="label"><span>(05)</span> Contact</p>
+        <h2 class="contact__title" data-split-chars>Travaillons ensemble.</h2>
+        <a class="contact__mail" href="mailto:glinethomas@outlook.fr" data-cursor="Écrire">
+          <span class="contact__mail-text">glinethomas@outlook.fr</span>
+          <span class="contact__mail-line" aria-hidden="true"></span>
+        </a>
+        <div class="contact__actions">
+          <a class="btn btn--primary" href="mailto:glinethomas@outlook.fr" data-magnetic>M'écrire un email</a>
+          <a class="btn btn--ghost" href="https://www.linkedin.com/in/thomas-gline" target="_blank" rel="noopener" data-magnetic>LinkedIn <span class="btn__arrow" aria-hidden="true">↗</span></a>
+          <a class="btn btn--ghost" href="assets/cv/Thomas-Gline-CV.pdf" download data-magnetic>Télécharger mon CV <span class="btn__arrow" aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <footer class="footer container">
+        <span>Thomas Gline</span>
+        <span>Souvret, Belgique</span>
+        <a href="#top" data-scroll-to>Retour en haut ↑</a>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Visionneuse plein écran -->
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Écrans du projet" hidden>
+    <div class="lightbox__bar">
+      <span class="lightbox__title"></span>
+      <button class="lightbox__close" aria-label="Fermer">Fermer ✕</button>
+    </div>
+    <div class="lightbox__scroller" data-lenis-prevent>
+      <div class="lightbox__content"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
