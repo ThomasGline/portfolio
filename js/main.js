@@ -50,7 +50,7 @@
     cinemon: {
       title: 'Cinémon',
       items: [
-        { src: 'assets/img/cinemon-desktop.jpg', w: 1440, h: 4411, kind: 'wide', cap: 'Desktop : page d\'accueil complète', alt: 'Page d\'accueil desktop de Cinémon' },
+        { src: 'assets/img/cinemon-desktop.jpg', w: 1440, h: 4520, kind: 'wide', cap: 'Desktop : page d\'accueil complète', alt: 'Page d\'accueil desktop de Cinémon' },
         { src: 'assets/img/cinemon-mobile.jpg', w: 375, h: 5454, kind: 'phone', cap: 'Mobile', alt: 'Version mobile de Cinémon' },
       ],
     },
@@ -231,20 +231,23 @@
     ScrollTrigger.addEventListener('refreshInit', () => ScrollTrigger.sort());
 
     /* Reel : le cadre s'ouvre en plein écran, les colonnes glissent.
-       Créé une seule fois (les valeurs s'adaptent à la largeur à chaque recalcul). */
-    const travel = () => (narrow() ? 0.15 : 0.3);
-    const reel = gsap.timeline({
-      scrollTrigger: { trigger: '.reel', start: 'top top', end: '+=150%', pin: true, scrub: true, invalidateOnRefresh: true },
-    });
-    reel.fromTo('.reel__frame',
-      { clipPath: 'inset(16% 20% 16% 20% round 28px)' },
-      { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'power2.inOut', duration: 0.55 }, 0);
-    reel.fromTo('.reel__cols', { scale: 1.25 }, { scale: 1, ease: 'power2.inOut', duration: 0.55 }, 0);
-    $$('.reel__col').forEach((col) => {
-      const s = parseFloat(col.dataset.speed);
-      reel.fromTo(col, { y: () => s * vh() * travel() }, { y: () => -s * vh() * travel(), ease: 'none', duration: 1 }, 0);
-    });
-    reel.fromTo('.reel__caption', { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.15 }, 0.5);
+       Section actuellement désactivée dans index.html (balise <template>) : ce code ne s'exécute
+       que si elle est réactivée. Créé une seule fois, les valeurs s'adaptent à chaque recalcul. */
+    if ($('.reel')) {
+      const travel = () => (narrow() ? 0.15 : 0.3);
+      const reel = gsap.timeline({
+        scrollTrigger: { trigger: '.reel', start: 'top top', end: '+=150%', pin: true, scrub: true, invalidateOnRefresh: true },
+      });
+      reel.fromTo('.reel__frame',
+        { clipPath: 'inset(16% 20% 16% 20% round 28px)' },
+        { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'power2.inOut', duration: 0.55 }, 0);
+      reel.fromTo('.reel__cols', { scale: 1.25 }, { scale: 1, ease: 'power2.inOut', duration: 0.55 }, 0);
+      $$('.reel__col').forEach((col) => {
+        const s = parseFloat(col.dataset.speed);
+        reel.fromTo(col, { y: () => s * vh() * travel() }, { y: () => -s * vh() * travel(), ease: 'none', duration: 1 }, 0);
+      });
+      reel.fromTo('.reel__caption', { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.15 }, 0.5);
+    }
 
     /* Parcours : défilement horizontal sur desktop, liste verticale sur mobile */
     mm.add('(min-width: 901px)', () => {
@@ -392,16 +395,28 @@
     });
 
     /* Projets : la scène s'ouvre, les captures défilent dans les écrans */
+    const PRESENTATION = 2.6; // durée de la présentation des sites, en hauteurs d'écran de scroll
+    const RAMP = 0.2;         // part de cette durée pour freiner (et autant pour repartir)
+    const HOLD = 0.1;         // vitesse de la scène au centre (0.1 = 10 % de la vitesse de la page)
+
+    // Courbe « plateau » : part et arrive à vitesse nulle, vitesse constante au milieu.
+    // r = part du trajet consacrée à accélérer (et autant à ralentir).
+    const plateau = (r) => {
+      const G = (p) => (p < r ? p / 2 - (r / (2 * Math.PI)) * Math.sin((Math.PI * p) / r) : r / 2 + (p - r));
+      const total = 1 - r;
+      return (p) => (p <= 1 - r ? G(p) : total - G(1 - p)) / total;
+    };
+
     $$('.project__stage').forEach((stage) => {
       const wrap = stage.parentElement;
       const shots = $$('[data-scrollshot]', stage);
 
-      // Sites web : la présentation démarre juste avant que la scène atteigne le centre.
-      // Pendant qu'elle défile dans l'écran, la scène continue de monter, mais au ralenti
-      // (elle parcourt 28 % de l'écran pendant 160 % de scroll), sans jamais bloquer la page.
-      const presentation = () => window.innerHeight * 1.6;
-      const drift = () => window.innerHeight * 0.28;
-      const extra = () => (shots.length ? presentation() - drift() : 0);
+      // Sites web : en approchant du centre, la scène freine progressivement jusqu'à presque
+      // s'arrêter, le site défile dans l'écran, puis elle repart progressivement.
+      // La vitesse ne change jamais d'un coup : pas d'à-coup à l'entrée ni à la sortie.
+      const length = () => window.innerHeight * PRESENTATION;
+      const extra = () => (shots.length ? length() * (1 - HOLD) * (1 - RAMP) : 0); // retard pris par la scène
+      const drift = () => length() - extra(); // distance réellement parcourue à l'écran pendant la présentation
       if (shots.length) {
         const setSpace = () => { wrap.style.paddingBottom = `${extra()}px`; };
         setSpace();
@@ -409,24 +424,26 @@
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: wrap,
-            start: () => `top+=${stage.offsetHeight / 2} 64%`,
-            end: () => `+=${presentation()}`,
-            scrub: 0.6,
+            // départ calculé pour que le moment le plus lent soit pile au centre de l'écran
+            start: () => `top+=${stage.offsetHeight / 2} center+=${drift() / 2}`,
+            end: () => `+=${length()}`,
+            scrub: true,
             invalidateOnRefresh: true,
           },
         });
-        tl.to(stage, { y: () => extra(), ease: 'none', duration: 1 }, 0);
+        tl.to(stage, { y: () => extra(), ease: plateau(RAMP), duration: 1 }, 0);
         shots.forEach((vp) => {
           const img = $('img', vp);
-          tl.to(img, { y: () => -(img.offsetHeight - vp.clientHeight), ease: 'none', duration: 1 }, 0);
+          // le site ne défile que pendant que la scène est (presque) immobile au centre
+          tl.to(img, { y: () => -(img.offsetHeight - vp.clientHeight), ease: plateau(0.15), duration: 1 - 2 * RAMP }, RAMP);
         });
       }
 
       gsap.fromTo(stage,
         { clipPath: 'inset(9% 7% 9% 7% round 28px)' },
-        { clipPath: 'inset(0% 0% 0% 0% round 28px)', ease: 'none', scrollTrigger: { trigger: wrap, start: 'top 95%', end: 'top 20%', scrub: true } });
+        { clipPath: 'inset(0% 0% 0% 0% round 28px)', ease: 'none', scrollTrigger: { trigger: wrap, start: 'top 95%', end: 'top 50%', scrub: true } });
       gsap.fromTo($('.stage__inner', stage), { scale: 1.12 }, {
-        scale: 1, ease: 'none', scrollTrigger: { trigger: wrap, start: 'top 95%', end: 'top 20%', scrub: true },
+        scale: 1, ease: 'none', scrollTrigger: { trigger: wrap, start: 'top 95%', end: 'top 50%', scrub: true },
       });
 
       // Amplitude proportionnelle à la scène : les éléments flottants restent dans le cadre sur mobile
@@ -525,28 +542,10 @@
     document.addEventListener('mouseover', (e) => {
       const labelled = e.target.closest('[data-cursor]');
       const link = e.target.closest('a, button');
-      const inIndex = !!e.target.closest('.index a'); // liste des projets : simple point au-dessus de l'aperçu
+      const inIndex = !!e.target.closest('.index a'); // liste des projets : le curseur reste un simple point
       cursor.classList.toggle('cursor--label', !!labelled);
       cursor.classList.toggle('cursor--link', !labelled && !!link && !inIndex);
       if (labelled) label.textContent = labelled.dataset.cursor;
-    });
-
-    /* Aperçu qui suit la souris sur la liste des projets */
-    const preview = $('.index__preview');
-    const previewImg = $('img', preview);
-    gsap.set(preview, { xPercent: -50, yPercent: -50, scale: 0.6, rotation: -8, autoAlpha: 0 });
-    const px = gsap.quickTo(preview, 'x', { duration: 0.7, ease: 'power3' });
-    const py = gsap.quickTo(preview, 'y', { duration: 0.7, ease: 'power3' });
-    const index = $('.index');
-    index.addEventListener('mousemove', (e) => { px(e.clientX); py(e.clientY); });
-    $$('a', index).forEach((a) => {
-      a.addEventListener('mouseenter', () => {
-        previewImg.src = a.dataset.preview;
-        gsap.to(preview, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.6, ease: 'expo.out', overwrite: 'auto' });
-      });
-      a.addEventListener('mouseleave', () => {
-        gsap.to(preview, { autoAlpha: 0, scale: 0.6, rotation: -8, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
-      });
     });
 
     /* Boutons magnétiques */

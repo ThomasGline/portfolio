@@ -48,6 +48,7 @@
       <nav class="nav__links" aria-label="Navigation principale">
         <a href="#projets" data-scroll-to>Projets</a>
         <a href="#apropos" data-scroll-to>À propos</a>
+        <a href="#competences" data-scroll-to>Compétences</a>
         <a href="#parcours" data-scroll-to>Parcours</a>
         <a href="#contact" data-scroll-to>Contact</a>
       </nav>
@@ -81,12 +82,14 @@
       </h1>
     </section>
 
-    <!-- GALERIE (colonnes en parallaxe) -->
+    <!-- GALERIE DU DÉBUT : désactivée le 15/10/2026, conservée pour pouvoir la remettre.
+         Pour la réactiver : supprimer la ligne <template> ci-dessous et sa ligne </template>. -->
+    <template data-archive="reel">
     <section class="reel" aria-label="Aperçu des projets">
       <div class="reel__frame">
         <div class="reel__cols">
           <div class="reel__col" data-speed="-1">
-            <img src="assets/img/cinemon-desktop.jpg" width="1440" height="4411" alt="" class="reel__img reel__img--wide">
+            <img src="assets/img/cinemon-desktop.jpg" width="1440" height="4520" alt="" class="reel__img reel__img--wide">
             <img src="assets/img/workout-home.jpg" width="393" height="852" alt="">
             <img src="assets/img/gabrielle-pathologie.jpg" width="1440" height="826" alt="" class="reel__img reel__img--wide">
             <img src="assets/img/astro-venus.jpg" width="402" height="874" alt="">
@@ -100,7 +103,7 @@
           <div class="reel__col" data-speed="-1.4">
             <img src="assets/img/gabrielle-site.jpg" width="1440" height="5133" alt="" class="reel__img reel__img--wide">
             <img src="assets/img/astro-venus.jpg" width="402" height="874" alt="">
-            <img src="assets/img/cinemon-desktop.jpg" width="1440" height="4411" alt="" class="reel__img reel__img--wide reel__img--mid">
+            <img src="assets/img/cinemon-desktop.jpg" width="1440" height="4520" alt="" class="reel__img reel__img--wide reel__img--mid">
             <img src="assets/img/workout-home.jpg" width="393" height="852" alt="">
           </div>
           <div class="reel__col" data-speed="0.8">
@@ -113,6 +116,7 @@
         <p class="reel__caption">4 projets · Web &amp; Mobile · Conçus dans Figma</p>
       </div>
     </section>
+    </template>
 
     <!-- MARQUEE -->
     <section class="marquee" aria-hidden="true">
@@ -164,21 +168,20 @@
         </div>
 
         <ol class="index" aria-label="Liste des projets">
-          <li><a href="#cinemon" data-scroll-to data-preview="assets/img/cinemon-desktop.jpg">
+          <li><a href="#cinemon" data-scroll-to>
             <span class="index__num">01</span><span class="index__name">Cinémon</span><span class="index__type">Site web responsive</span><span class="index__year">2026</span>
           </a></li>
-          <li><a href="#workout" data-scroll-to data-preview="assets/img/workout-home.jpg">
+          <li><a href="#workout" data-scroll-to>
             <span class="index__num">02</span><span class="index__name">Workout</span><span class="index__type">Application mobile</span><span class="index__year">2026</span>
           </a></li>
-          <li><a href="#astro" data-scroll-to data-preview="assets/img/astro-mars.jpg">
+          <li><a href="#astro" data-scroll-to>
             <span class="index__num">03</span><span class="index__name">Astro</span><span class="index__type">Application mobile</span><span class="index__year">2026</span>
           </a></li>
-          <li><a href="#gabrielle" data-scroll-to data-preview="assets/img/gabrielle-hero.jpg">
+          <li><a href="#gabrielle" data-scroll-to>
             <span class="index__num">04</span><span class="index__name">Gabrielle</span><span class="index__type">Site vitrine</span><span class="index__year">2026</span>
           </a></li>
         </ol>
       </div>
-      <div class="index__preview" aria-hidden="true"><img src="" alt=""></div>
     </section>
 
     <!-- PROJET 01 : CINÉMON -->
@@ -197,14 +200,14 @@
             <div class="laptop" data-float="0.6">
               <div class="laptop__screen">
                 <div class="laptop__viewport" data-scrollshot>
-                  <img src="assets/img/cinemon-desktop.jpg" width="1440" height="4411" alt="Page d'accueil desktop du site Cinémon, de l'en-tête au pied de page" loading="lazy">
+                  <img src="assets/img/cinemon-desktop.jpg" width="1440" height="4520" alt="Page d'accueil desktop du site Cinémon, de l'en-tête au pied de page" decoding="async">
                 </div>
               </div>
               <div class="laptop__base"></div>
             </div>
             <div class="phone phone--cinemon" data-float="-0.8">
               <div class="phone__screen" data-scrollshot>
-                <img src="assets/img/cinemon-mobile.jpg" width="375" height="5454" alt="Version mobile du site Cinémon" loading="lazy">
+                <img src="assets/img/cinemon-mobile.jpg" width="375" height="5454" alt="Version mobile du site Cinémon" decoding="async">
               </div>
             </div>
           </div>
@@ -329,7 +332,7 @@
             <div class="browser" data-float="0.4">
               <div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">Bientôt en ligne</span></div>
               <div class="browser__viewport" data-scrollshot>
-                <img src="assets/img/gabrielle-site.jpg" width="1440" height="5133" alt="Page d'accueil complète du site Gabrielle" loading="lazy">
+                <img src="assets/img/gabrielle-site.jpg" width="1440" height="5133" alt="Page d'accueil complète du site Gabrielle" decoding="async">
               </div>
             </div>
             <figure class="shot shot--a" data-float="-1.4">
