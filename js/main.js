@@ -12,6 +12,7 @@
   const motion = hasGsap && matchMedia('(prefers-reduced-motion: no-preference)').matches;
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
   let lenis = null;
+  let viewH = window.innerHeight; // hauteur d'écran de référence pour les animations
 
   /* ------------------------------------------------------------------------
      Horloge (heure belge)
@@ -32,15 +33,23 @@
     if (!heroTitle) return;
     const words = $$('.hero__word', heroTitle);
     const stacked = matchMedia('(max-width: 760px)').matches;
-    heroTitle.style.fontSize = '100px';
     const cs = getComputedStyle(heroTitle);
     const avail = heroTitle.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-    const widths = words.map((w) => w.offsetWidth);
-    const gap = parseFloat(cs.columnGap) || 0;
-    const needed = stacked
-      ? Math.max(...widths)
-      : widths.reduce((a, b) => a + b, 0) + gap * (words.length - 1);
-    heroTitle.style.fontSize = `${(100 * avail / needed) * 0.99}px`;
+    // Plusieurs passes : sur Apple, la police change légèrement de dessin selon sa taille,
+    // la largeur n'est donc pas parfaitement proportionnelle. On affine la mesure.
+    let size = 100;
+    for (let i = 0; i < 3; i++) {
+      heroTitle.style.fontSize = `${size}px`;
+      const widths = words.map((w) => {
+        const ws = getComputedStyle(w);
+        return w.offsetWidth - parseFloat(ws.paddingLeft) - parseFloat(ws.paddingRight);
+      });
+      const gap = parseFloat(getComputedStyle(heroTitle).columnGap) || 0;
+      const overhang = size * 0.06; // la dernière lettre dépasse de sa boîte (interlettrage négatif)
+      const needed = (stacked ? Math.max(...widths) : widths.reduce((a, b) => a + b, 0) + gap * (words.length - 1)) + overhang;
+      size *= avail / needed;
+    }
+    heroTitle.style.fontSize = `${size * 0.99}px`;
   }
 
   /* ------------------------------------------------------------------------
@@ -151,6 +160,8 @@
   }
 
   gsap.registerPlugin(ScrollTrigger, SplitText);
+  // Mobile : la barre d'adresse qui se replie change la hauteur de l'écran, on n'en tient pas compte
+  ScrollTrigger.config({ ignoreMobileResize: true });
 
   /* ------------------------------------------------------------------------
      Défilement fluide
@@ -158,7 +169,10 @@
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
 
-  lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1 });
+  // syncTouch : sur iPhone, le défilement au doigt passe aussi par Lenis. Le défilement et les animations
+  // sont calculés au même moment, ce qui supprime les tremblements (cadre coloré, titre) dus au
+  // décalage d'une image entre le scroll natif de Safari et les animations.
+  lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1, syncTouch: true });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
@@ -194,8 +208,9 @@
   const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
 
   Promise.all([fontsReady, counting.then()]).then(() => {
-    fitTitle();
+    // Mesure après le découpage en lettres : séparées, elles perdent leur crénage et s'élargissent un peu
     const heroChars = SplitText.create('.hero__word', { type: 'chars', charsClass: 'char' }).chars;
+    fitTitle();
     const lead = SplitText.create('.hero__lead', { type: 'lines', linesClass: 'line', mask: 'lines' });
     gsap.set(heroChars, { yPercent: 118 });
     gsap.set(lead.lines, { yPercent: 110 });
@@ -222,7 +237,7 @@
      ------------------------------------------------------------------------ */
   function buildScroll() {
     const mm = gsap.matchMedia();
-    const vh = () => window.innerHeight;
+    const vh = () => viewH;
     const narrow = () => matchMedia('(max-width: 760px)').matches;
 
     // Les animations recréées lors d'un redimensionnement passent en fin de liste :
@@ -414,7 +429,7 @@
       // Sites web : en approchant du centre, la scène freine progressivement jusqu'à presque
       // s'arrêter, le site défile dans l'écran, puis elle repart progressivement.
       // La vitesse ne change jamais d'un coup : pas d'à-coup à l'entrée ni à la sortie.
-      const length = () => window.innerHeight * PRESENTATION;
+      const length = () => vh() * PRESENTATION;
       const extra = () => (shots.length ? length() * (1 - HOLD) * (1 - RAMP) : 0); // retard pris par la scène
       const drift = () => length() - extra(); // distance réellement parcourue à l'écran pendant la présentation
       if (shots.length) {
@@ -457,7 +472,7 @@
             trigger: wrap,
             start: 'top bottom',
             // de l'entrée à la sortie de la scène, ralenti compris
-            end: () => `+=${window.innerHeight + stage.offsetHeight + extra()}`,
+            end: () => `+=${vh() + stage.offsetHeight + extra()}`,
             scrub: true,
             invalidateOnRefresh: true,
           },
@@ -513,10 +528,15 @@
     if (finePointer) desktopInteractions();
 
     addEventListener('load', () => ScrollTrigger.refresh());
+    // On ne recalcule que si la largeur change : sur mobile, la barre d'adresse qui apparaît
+    // ou disparaît en scrollant ne change que la hauteur, et un recalcul ferait sauter la page.
     let resizeTimer;
+    let lastWidth = window.innerWidth;
     addEventListener('resize', () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => { fitTitle(); ScrollTrigger.refresh(); }, 150);
+      resizeTimer = setTimeout(() => { viewH = window.innerHeight; fitTitle(); ScrollTrigger.refresh(); }, 150);
     });
     ScrollTrigger.sort();
     ScrollTrigger.refresh();

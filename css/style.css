@@ -346,10 +346,13 @@ h1, h2, h3, p, dl, dd, figure { margin: 0; }
 }
 .hero__word {
   display: block;
-  padding: .12em 0 .06em;
-  margin-top: -.12em;
+  /* marge intérieure à gauche et à droite : Safari rogne sinon la dernière lettre (« s », « e »),
+     qui dépasse de sa boîte à cause de l'interlettrage négatif */
+  padding: .12em .1em .06em;
+  margin: -.12em -.1em 0;
   overflow-x: visible;
   overflow-y: clip;
+  will-change: transform;
 }
 
 @media (max-width: 760px) {
@@ -544,6 +547,7 @@ h1, h2, h3, p, dl, dd, figure { margin: 0; }
   position: relative;
   height: clamp(480px, min(64vw, 100vh - 96px), 900px);
   container-type: size;
+  will-change: transform;
   border-radius: var(--radius);
   overflow: hidden;
   background: radial-gradient(120% 90% at 50% 105%, var(--tint-2), var(--tint) 70%);
