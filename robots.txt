@@ -1,0 +1,8 @@
+# Tout le site peut être indexé, sauf :
+# - le CV (il contient téléphone, adresse et date de naissance) : il reste téléchargeable depuis le site
+# - le README, destiné au dépôt GitHub
+User-agent: *
+Disallow: /assets/cv/
+Disallow: /README
+
+Sitemap: https://thomasgline.be/sitemap.xml
