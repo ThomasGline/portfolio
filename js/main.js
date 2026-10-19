@@ -172,7 +172,16 @@
   // syncTouch : sur iPhone, le défilement au doigt passe aussi par Lenis. Le défilement et les animations
   // sont calculés au même moment, ce qui supprime les tremblements (cadre coloré, titre) dus au
   // décalage d'une image entre le scroll natif de Safari et les animations.
-  lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1, syncTouch: true });
+  // Réglages tactiles (iPhone) :
+  //  - touchInertiaMultiplier : élan après un geste rapide du doigt (Lenis : 35 par défaut). Plus bas = moins loin.
+  //  - syncTouchLerp : vitesse à laquelle cet élan s'amortit (0.075 par défaut). Plus haut = s'arrête plus vite.
+  lenis = new Lenis({
+    lerp: 0.09,
+    wheelMultiplier: 1,
+    syncTouch: true,
+    touchInertiaMultiplier: 18,
+    syncTouchLerp: 0.09,
+  });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
