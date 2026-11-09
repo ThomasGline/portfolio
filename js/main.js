@@ -63,11 +63,16 @@
         { src: 'assets/img/cinemon-mobile.jpg', w: 375, h: 5454, kind: 'phone', cap: 'Mobile', alt: 'Version mobile de Cinémon' },
       ],
     },
-    workout: {
-      title: 'Workout',
+    'pinceau-pipo': {
+      title: 'Pinceau & Pipo',
       items: [
-        { src: 'assets/img/workout-home.jpg', w: 393, h: 852, kind: 'phone', cap: 'Accueil', alt: 'Écran d\'accueil de Workout' },
-        { src: 'assets/img/workout-historique.jpg', w: 393, h: 852, kind: 'phone', cap: 'Historique', alt: 'Écran Historique de Workout' },
+        { src: 'assets/img/pp-accueil.png', w: 402, h: 1059, kind: 'phone', cap: 'Accueil', alt: 'Accueil de Pinceau & Pipo' },
+        { src: 'assets/img/pp-nouvelle-partie.png', w: 402, h: 874, kind: 'phone', cap: 'Nouvelle partie', alt: 'Choix du type de partie : en ligne ou entre amis' },
+        { src: 'assets/img/pp-salon.png', w: 402, h: 874, kind: 'phone', cap: 'Salon privé, vue de l\'hôte', alt: 'Salon privé avec son code et la liste des joueurs' },
+        { src: 'assets/img/pp-guide-choix.png', w: 402, h: 874, kind: 'phone', cap: 'Le Guide choisit son tableau', alt: 'Le Guide choisit un tableau parmi trois' },
+        { src: 'assets/img/pp-guide-resultat.png', w: 402, h: 884, kind: 'phone', cap: 'Résultat de la manche', alt: 'Résultat de la manche et réponses des Experts' },
+        { src: 'assets/img/pp-collection.png', w: 402, h: 996, kind: 'phone', cap: 'Collection : le musée du joueur', alt: 'Collection des œuvres découvertes par le joueur' },
+        { src: 'assets/img/pp-boutique.png', w: 402, h: 1625, kind: 'phone', cap: 'Boutique', alt: 'Boutique : Pass Musée et packs thématiques' },
       ],
     },
     astro: {
@@ -498,15 +503,23 @@
       });
     });
 
-    /* Workout : les téléphones se redressent, le mot défile derrière */
-    const workout = $('#workout .project__stage');
-    const workoutST = { trigger: workout, start: 'top bottom', end: 'center center', scrub: true, invalidateOnRefresh: true };
-    const spread = () => (narrow() ? 12 : 35);
-    gsap.fromTo('.phone--tilt-l', { rotation: -20, xPercent: () => -spread() }, { rotation: -6, xPercent: 0, ease: 'none', scrollTrigger: workoutST });
-    gsap.fromTo('.phone--tilt-r', { rotation: 20, xPercent: () => spread() }, { rotation: 6, xPercent: 0, ease: 'none', scrollTrigger: workoutST });
-    gsap.set('.stage__word', { x: 0, y: 0, xPercent: -50, yPercent: -50 });
-    gsap.fromTo('.stage__word', { xPercent: -25 }, {
-      xPercent: -75, ease: 'none', scrollTrigger: { trigger: workout, start: 'top bottom', end: 'bottom top', scrub: true },
+    /* Pinceau & Pipo : les trois écrans s'ouvrent en éventail, comme une main de cartes,
+       puis les pastilles « Décris / Devine / Collectionne » apparaissent */
+    const pp = $('#pinceau-pipo .project__stage');
+    const ppST = { trigger: pp, start: 'top bottom', end: 'center center', scrub: true, invalidateOnRefresh: true };
+    const fan = () => (narrow() ? 70 : 84); // écart final, en % de la largeur d'un téléphone
+    [['.pp__card--l', -1], ['.pp__card--r', 1]].forEach(([sel, side]) => {
+      gsap.fromTo(sel,
+        { x: 0, y: 0, xPercent: 0, yPercent: 0, rotation: 0, scale: 0.92 },
+        { xPercent: () => side * fan(), yPercent: 5, rotation: side * 9, scale: 1, ease: 'power1.out', scrollTrigger: ppST });
+    });
+    gsap.from('.sticker > span', { // (le flottement est sur .sticker : les deux animations ne se gênent pas)
+      scale: 0,
+      rotation: (i) => (i % 2 ? 40 : -40),
+      duration: 0.9,
+      stagger: 0.12,
+      ease: 'back.out(2.2)',
+      scrollTrigger: { trigger: pp, start: 'top 45%', once: true },
     });
 
     /* Astro : le fond passe de Mars à Vénus */
