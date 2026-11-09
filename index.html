@@ -40,7 +40,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.css">
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=4">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -138,8 +138,8 @@
           <li><a href="#cinemon" data-scroll-to>
             <span class="index__num">01</span><span class="index__name">Cinémon</span><span class="index__type">Site web responsive</span><span class="index__year">2026</span>
           </a></li>
-          <li><a href="#workout" data-scroll-to>
-            <span class="index__num">02</span><span class="index__name">Workout</span><span class="index__type">Application mobile</span><span class="index__year">2026</span>
+          <li><a href="#pinceau-pipo" data-scroll-to>
+            <span class="index__num">02</span><span class="index__name">Pinceau &amp; Pipo</span><span class="index__type">Application mobile</span><span class="index__year">2026</span>
           </a></li>
           <li><a href="#astro" data-scroll-to>
             <span class="index__num">03</span><span class="index__name">Astro</span><span class="index__type">Application mobile</span><span class="index__year">2026</span>
@@ -195,47 +195,59 @@
       </div>
     </article>
 
-    <!-- PROJET 02 : WORKOUT -->
-    <article class="project project--alt" id="workout" style="--tint:#ffe7c4; --tint-2:#ffc76b">
+    <!-- PROJET 02 : PINCEAU & PIPO (projet de fin de formation) -->
+    <article class="project project--alt" id="pinceau-pipo" style="--tint:#ece6ff; --tint-2:#bba8ff">
       <div class="container">
         <header class="project__head">
           <span class="project__num">02</span>
-          <h3 class="project__title" data-split-chars>Workout</h3>
-          <p class="project__kicker">Application mobile de suivi d'entraînement</p>
+          <h3 class="project__title" data-split-chars>Pinceau &amp; Pipo</h3>
+          <p class="project__kicker">Jeu mobile multijoueur autour de l'histoire de l'art</p>
         </header>
       </div>
 
       <div class="stage-wrap">
-        <div class="project__stage" data-lightbox="workout" data-cursor="Voir en grand">
-          <div class="stage__inner stage__inner--duo">
-            <span class="stage__word" aria-hidden="true">Streak</span>
-            <div class="phone phone--tilt-l" data-float="-0.6">
-              <div class="phone__screen">
-                <img src="assets/img/workout-home.jpg" width="393" height="852" alt="Écran d'accueil de Workout : streak de 7 jours et workout en cours" loading="lazy">
+        <div class="project__stage" data-lightbox="pinceau-pipo" data-cursor="Voir en grand">
+          <!-- Trois écrans en éventail, comme une main de cartes (l'éventail s'ouvre au scroll) -->
+          <div class="stage__inner stage__inner--pp">
+            <div class="pp__card pp__card--l">
+              <div class="phone" data-float="0.9">
+                <div class="phone__screen">
+                  <img src="assets/img/pp-guide-choix.png" width="402" height="874" alt="Le Guide choisit son tableau parmi trois œuvres, avec un compte à rebours" loading="lazy">
+                </div>
               </div>
             </div>
-            <div class="phone phone--tilt-r" data-float="0.9">
-              <div class="phone__screen">
-                <img src="assets/img/workout-historique.jpg" width="393" height="852" alt="Écran Historique de Workout : 48 workouts complétés, 2473 minutes" loading="lazy">
+            <div class="pp__card pp__card--r">
+              <div class="phone" data-float="1.1">
+                <div class="phone__screen">
+                  <img src="assets/img/pp-guide-resultat-ecran.png" width="402" height="874" alt="Résultat de la manche : Bien guidé, +150 points, et les réponses des Experts" loading="lazy">
+                </div>
               </div>
             </div>
-            <span class="chip chip--a" data-float="1.6">7 jours de suite</span>
-            <span class="chip chip--b" data-float="-1.2">48 workouts complétés</span>
+            <div class="pp__card pp__card--c">
+              <div class="phone" data-float="-0.6">
+                <div class="phone__screen">
+                  <img src="assets/img/pp-accueil-ecran.png" width="402" height="874" alt="Accueil de Pinceau & Pipo : niveau du joueur et modes de jeu Expert & Guide et L'Œil de Lynx" loading="lazy">
+                </div>
+              </div>
+            </div>
+            <span class="sticker sticker--a" aria-hidden="true" data-float="1.6"><span>Décris</span></span>
+            <span class="sticker sticker--b" aria-hidden="true" data-float="-1.4"><span>Devine</span></span>
+            <span class="sticker sticker--c" aria-hidden="true" data-float="1.2"><span>Collectionne</span></span>
           </div>
         </div>
       </div>
 
       <div class="container project__body">
         <p class="project__desc" data-fade>
-          Une app de sport qui motive au quotidien&nbsp;: série de jours consécutifs, reprise du workout en cours, création de séances et historique des performances. Le contraste noir et orange permet une lecture rapide, même en pleine séance.
+          Mon projet de fin de formation&nbsp;: un jeu mobile pour découvrir l'histoire de l'art entre amis. En mode Expert &amp; Guide, le Guide décrit un tableau de mémoire et les Experts doivent le retrouver parmi des sosies. Chaque œuvre devinée rejoint le musée personnel du joueur. On joue en ligne ou en salon privé, dans une interface colorée aux contours épais, ludique et lisible.
         </p>
         <dl class="project__meta" data-stagger>
           <div><dt>Année</dt><dd>2026</dd></div>
-          <div><dt>Contexte</dt><dd>Formation UX/UI, CEPEGRA</dd></div>
+          <div><dt>Contexte</dt><dd>Projet de fin de formation, CEPEGRA</dd></div>
           <div><dt>Livrables</dt><dd>Maquettes iOS</dd></div>
           <div><dt>Outil</dt><dd>Figma</dd></div>
         </dl>
-        <button class="btn btn--ghost" data-lightbox="workout" data-magnetic>Voir les écrans en grand <span class="btn__arrow" aria-hidden="true">↗</span></button>
+        <button class="btn btn--ghost" data-lightbox="pinceau-pipo" data-magnetic>Voir les écrans en grand <span class="btn__arrow" aria-hidden="true">↗</span></button>
       </div>
     </article>
 
@@ -440,6 +452,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
-  <script src="js/main.js?v=3"></script>
+  <script src="js/main.js?v=4"></script>
 </body>
 </html>
