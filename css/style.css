@@ -691,39 +691,37 @@ h1, h2, h3, p, dl, dd, figure { margin: 0; }
 
 .stage__inner--duo { gap: clamp(24px, 6vw, 96px); }
 .stage__inner--duo .phone { width: min(24cqw, 38cqh, 320px); }
-.phone--tilt-l { transform: rotate(-6deg); }
-.phone--tilt-r { transform: rotate(6deg) translateY(6%); }
 .phone--offset { transform: translateY(10%); }
 
-.stage__word {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: clamp(120px, 26vw, 400px);
-  font-weight: 800;
-  letter-spacing: -0.06em;
-  color: rgba(255, 255, 255, .55);
-  white-space: nowrap;
-  pointer-events: none;
-}
+/* Pinceau & Pipo : trois écrans superposés, ouverts en éventail comme une main de cartes */
+.stage__inner--pp { --w: min(21cqw, 37cqh, 300px); display: grid; place-items: center; }
+.pp__card { grid-area: 1 / 1; width: var(--w); }
+.pp__card .phone { width: 100%; }
+.pp__card--l { transform: translate(-84%, 5%) rotate(-9deg); }
+.pp__card--r { transform: translate(84%, 5%) rotate(9deg); }
+.pp__card--c { z-index: 1; }
 
-.chip {
-  position: absolute;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border-radius: 999px;
-  background: #fff;
-  font-size: clamp(13px, 1.1vw, 16px);
-  font-weight: 600;
+/* Pastilles dans le style de l'app : contour noir épais, ombre décalée, couleurs du jeu */
+.sticker { position: absolute; z-index: 2; pointer-events: none; }
+.sticker > span {
+  display: block;
+  padding: .4em .85em .45em;
+  border: 2px solid #1a1814;
+  border-radius: .55em;
+  background: var(--sticker);
+  box-shadow: 4px 4px 0 #1a1814;
+  font-size: clamp(17px, 1.9vw, 28px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #1a1814;
   white-space: nowrap;
-  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, .3);
+  transform: rotate(var(--tilt));
 }
-.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #ff9f0a; }
-.chip--a { top: 16%; left: 14%; }
-.chip--b { bottom: 16%; right: 13%; }
+/* placées par rapport à l'éventail (--w = largeur d'un téléphone) : elles mordent sur le cadre, pas sur l'écran */
+.sticker--a { --sticker: #fd8f68; --tilt: -7deg; top: 18%; right: calc(50% + 1.4 * var(--w)); }
+.sticker--b { --sticker: #93eac6; --tilt: 6deg; top: 41%; left: calc(50% + 1.4 * var(--w)); }
+.sticker--c { --sticker: #ffd74c; --tilt: 4deg; bottom: 14%; right: calc(50% + 1.26 * var(--w)); }
 
 .project__stage--astro { background: var(--tint); }
 .stars {
@@ -771,12 +769,14 @@ h1, h2, h3, p, dl, dd, figure { margin: 0; }
   .phone--cinemon { width: 28cqw; right: 6cqw; bottom: 12cqh; }
   .stage__inner--duo { gap: 16px; }
   .stage__inner--duo .phone { width: 38cqw; }
-  /* Workout : le mot passe au-dessus des téléphones, les pastilles en dessous */
-  .stage__word { top: 12%; font-size: 25cqw; color: rgba(255, 255, 255, .75); }
-  .chip { gap: 6px; padding: 8px 12px; font-size: clamp(11px, 3.2cqw, 13px); }
-  .chip::before { width: 6px; height: 6px; }
-  .chip--a { top: auto; bottom: 5%; left: 4%; }
-  .chip--b { bottom: 5%; right: 4%; }
+  /* Pinceau & Pipo : éventail plus serré, deux pastilles au-dessus, une en dessous */
+  .stage__inner--pp { --w: 31cqw; }
+  .pp__card--l { transform: translate(-70%, 5%) rotate(-9deg); }
+  .pp__card--r { transform: translate(70%, 5%) rotate(9deg); }
+  .sticker > span { border-width: 1.5px; box-shadow: 3px 3px 0 #1a1814; font-size: clamp(13px, 4.2cqw, 17px); }
+  .sticker--a { top: 6%; right: auto; left: 7%; }
+  .sticker--b { top: 9%; left: auto; right: 7%; }
+  .sticker--c { --tilt: 3deg; bottom: 6%; left: 0; right: 0; width: max-content; margin-inline: auto; }
   .stage__inner--gabrielle .browser { width: 88cqw; }
   .shot--a { width: 52%; bottom: 7%; }
   .shot--b { width: 48%; top: 7%; }
